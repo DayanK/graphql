@@ -14,4 +14,17 @@ export const Query = {
     }
     return todo;
   },
+
+  getAllUsers: () => {
+    console.log("Get All Users");
+    return db.users;
+  },
+  getUserById: (parent, { id }, context, info) => {
+    const user = db.users.find((user) => user.id === id);
+    if (!user) {
+      throw new Error(`user with ${id} not exist`);
+    }
+    return user;
+  },
+  
 };

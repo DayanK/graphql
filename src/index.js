@@ -3,7 +3,9 @@ import {  createSchema, createYoga } from 'graphql-yoga';
 import path from "path";
 import fs from "fs";
 
-import { Query } from './resolvers/Query.mjs'
+import { Query } from './resolvers/Query.mjs';
+import { Todo } from './resolvers/Todo.mjs';
+import { User } from './resolvers/User.mjs';
 
 const __dirname = path.resolve();
 // Load the schema
@@ -17,7 +19,9 @@ const yoga = createYoga({
   schema: createSchema({
     typeDefs: typeDefsPath,
     resolvers: {
-      Query: Query
+      Query: Query,
+      Todo: Todo,
+      User : User
     }
   }),
   maskedErrors: false,

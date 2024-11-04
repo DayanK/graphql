@@ -28,7 +28,6 @@ export const db = {
       content: "Vivax malaria",
       status: "CANCEL",
       userId:4
-
     },
     {
       id: 5,
@@ -40,33 +39,31 @@ export const db = {
     },
   ],
   users: [
-    [
       {
         id: 1,
         name: "Ariella",
-        status: "ahenkens0@cbsnews.com",
+        email: "ahenkens0@cbsnews.com",
       },
       {
         id: 2,
         name: "Maryl",
-        status: "mvalentinetti1@sitemeter.com",
+        email: "mvalentinetti1@sitemeter.com",
       },
       {
         id: 3,
         name: "Chucho",
-        status: "crillatt2@yandex.ru",
+        email: "crillatt2@yandex.ru",
       },
       {
         id: 4,
         name: "Kev",
-        status: "kbirts3@plala.or.jp",
+        email: "kbirts3@plala.or.jp",
       },
       {
         id: 5,
         name: "Boote",
-        status: "bpendle4@flickr.com",
-      }
-    ],
+        email: "bpendle4@flickr.com",
+      },
   ],
 };
 

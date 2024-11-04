@@ -24,4 +24,6 @@ type Query {
   hello(name: String): String
   getTodos: [Todo]!
   getTodoById(id: Int): Todo!
+  getAllUsers: [User]!
+  getUserById(id: Int): User!
 }

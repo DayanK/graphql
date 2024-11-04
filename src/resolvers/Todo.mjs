@@ -7,3 +7,4 @@ export const Todo = {
     return db.users.find((user) => user.id === userId);
   },
 };
+
