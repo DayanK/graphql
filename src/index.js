@@ -7,6 +7,7 @@ import { Query } from './resolvers/Query.mjs';
 import { Todo } from './resolvers/Todo.mjs';
 import { User } from './resolvers/User.mjs';
 import { db } from './db/db.mjs';
+import { Mutation } from './resolvers/Mutation.mjs';
 
 const __dirname = path.resolve();
 // Load the schema
@@ -22,7 +23,8 @@ const yoga = createYoga({
     resolvers: {
       Query: Query,
       Todo: Todo,
-      User : User
+      User : User,
+      Mutation: Mutation,
     },   
   }),
   context: () => ({
