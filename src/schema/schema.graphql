@@ -1,3 +1,4 @@
+# Enum for the possible status of a todo
 enum TodoStatusEnum {
   WAITING
   IN_PROGRESS
@@ -5,6 +6,7 @@ enum TodoStatusEnum {
   DONE
 }
 
+# Defines a Todo type, with a status enum and a reference to the associated user
 type Todo {
   id: ID!
   name: String!
@@ -13,21 +15,62 @@ type Todo {
   user: User!
 }
 
+# Defines a User type, with a list of associated todos
 type User {
   id: ID!
   name: String!
   email: String!
-  todos: [Todo]
+  todos: [Todo] # A user can have multiple todos
 }
 
+# Query type for fetching data
 type Query {
   hello(name: String): String
-  getTodos: [Todo]!
-  getTodoById(id: Int): Todo!
-  getAllUsers: [User]!
-  getUserById(id: Int): User!
+  getTodos: [Todo!]! # Returns a list of todos
+  getTodoById(id: Int!): Todo # Fetches a single todo by id
+  getAllUsers: [User!]! # Returns a list of all users
+  getUserById(id: Int!): User # Fetches a single user by id
 }
 
+# Mutation type for creating, updating, and deleting todos
 type Mutation {
-  addTodo(userId: Int!, name: String!, content: String!): Todo!
+  addTodo(addTodoInput: TodoAddInput!): AddTodoResponse! # Adds a new todo
+  updateTodo(id: Int!, updateTodoInput: TodoUpdateInput!): UpdateTodoResponse! # Updates an existing todo
+  deleteTodo(id: Int!): DeleteTodoResponse! # Deletes a todo
+}
+
+# Custom response type for addTodo mutation
+type AddTodoResponse {
+  success: Boolean!
+  message: String!
+  todo: Todo # Returns the added todo item
+}
+
+# Custom response type for updateTodo mutation
+type UpdateTodoResponse {
+  success: Boolean!
+  message: String!
+  todo: Todo # Returns the updated todo item
+}
+
+# Custom response type for deleteTodo mutation
+type DeleteTodoResponse {
+  success: Boolean!
+  message: String!
+  todo: Todo # Returns the deleted todo item
+}
+
+# Input type for adding a new todo
+input TodoAddInput {
+  name: String!
+  content: String!
+  userId: Int!
+}
+
+# Input type for updating an existing todo
+input TodoUpdateInput {
+  name: String
+  content: String
+  userId: Int
+  status: TodoStatusEnum
 }
