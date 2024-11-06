@@ -1,5 +1,5 @@
-import { createServer } from 'node:http'
-import {  createSchema, createYoga } from 'graphql-yoga';
+import { createServer } from 'node:http';
+import {  createSchema, createYoga} from 'graphql-yoga';
 import path from "path";
 import fs from "fs";
 
@@ -8,6 +8,10 @@ import { Todo } from './resolvers/Todo.mjs';
 import { User } from './resolvers/User.mjs';
 import { db } from './db/db.mjs';
 import { Mutation } from './resolvers/Mutation.mjs';
+import { Subscription } from './resolvers/Subscription.mjs';
+import { PubSub } from 'graphql-subscriptions';
+
+const pubSub = new PubSub(); // Initialize PubSub
 
 const __dirname = path.resolve();
 // Load the schema
@@ -25,14 +29,19 @@ const yoga = createYoga({
       Todo: Todo,
       User : User,
       Mutation: Mutation,
+      Subscription: Subscription
     },   
   }),
   context: () => ({
     db, // add `db` context
+    pubSub
   }),
 
   maskedErrors: false,
 });
+
+
+
 
 const server = createServer(yoga)
 

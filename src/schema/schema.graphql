@@ -1,3 +1,23 @@
+# Query type for fetching data
+type Query {
+  hello(name: String): String
+  getTodos: [Todo!]! # Returns a list of todos
+  getTodoById(id: Int!): Todo # Fetches a single todo by id
+  getAllUsers: [User!]! # Returns a list of all users
+  getUserById(id: Int!): User # Fetches a single user by id
+}
+
+# Mutation type for creating, updating, and deleting todos
+type Mutation {
+  addTodo(addTodoInput: TodoAddInput!): AddTodoResponse! # Adds a new todo
+  updateTodo(id: Int!, updateTodoInput: TodoUpdateInput!): UpdateTodoResponse! # Updates an existing todo
+  deleteTodo(id: Int!): DeleteTodoResponse! # Deletes a todo
+}
+
+type Subscription {
+  todo: Todo!
+}
+
 # Enum for the possible status of a todo
 enum TodoStatusEnum {
   WAITING
@@ -21,22 +41,6 @@ type User {
   name: String!
   email: String!
   todos: [Todo] # A user can have multiple todos
-}
-
-# Query type for fetching data
-type Query {
-  hello(name: String): String
-  getTodos: [Todo!]! # Returns a list of todos
-  getTodoById(id: Int!): Todo # Fetches a single todo by id
-  getAllUsers: [User!]! # Returns a list of all users
-  getUserById(id: Int!): User # Fetches a single user by id
-}
-
-# Mutation type for creating, updating, and deleting todos
-type Mutation {
-  addTodo(addTodoInput: TodoAddInput!): AddTodoResponse! # Adds a new todo
-  updateTodo(id: Int!, updateTodoInput: TodoUpdateInput!): UpdateTodoResponse! # Updates an existing todo
-  deleteTodo(id: Int!): DeleteTodoResponse! # Deletes a todo
 }
 
 # Custom response type for addTodo mutation
