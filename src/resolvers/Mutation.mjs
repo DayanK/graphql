@@ -22,18 +22,16 @@ export const Mutation = {
     // Add the new `todo` to the database
     db.todos.push(newTodo);
     // Publish the new todo event
-    pubSub.publish('todo', { todo: newTodo });
+    pubsub.publish('todo', { todo: {todo: newTodo, mutation: "ADD"} });
     return {
       success: true,
       message: "Todo was successfully added.",
       todo: newTodo,
     };
   },
-  updateTodo: (parent, { id, updateTodoInput }, { db }, infos) => {
+  updateTodo: (parent, { id, updateTodoInput }, { db, pubsub }, infos) => {
     // Check if the userId exists if provided
-    if (
-      updateTodoInput.userId &&
-      !existsInArray(db.users, "id", updateTodoInput.userId)
+    if ( updateTodoInput.userId && !existsInArray(db.users, "id", updateTodoInput.userId)
     ) {
       throw new Error(`User with id ${updateTodoInput.userId} does not exist.`);
     }
@@ -52,15 +50,18 @@ export const Mutation = {
       }
     }
 
+    pubsub.publish('todo', { todo: {todo, mutation: "UPDATE"} });
+
     // Return success message and the updated todo
     return {
       success: true,
       message: "Todo was successfully updated.",
       todo, // Return the updated todo
     };
+
   },
 
-  deleteTodo: (parent, { id }, { db }, infos) => {
+  deleteTodo: (parent, { id }, { db, pubsub }, infos) => {
     // Check if the `todo` exists in `db.todos`
     const todoIndex = db.todos.findIndex((todo) => todo.id === id);
     if (todoIndex === -1) {
@@ -69,6 +70,9 @@ export const Mutation = {
 
     // Remove the `todo` and return the deleted item
     const [deletedTodo] = db.todos.splice(todoIndex, 1);
+    
+    pubsub.publish('todo', { todo: {deletedTodo, mutation: "DELETE"} });
+
     return {
       success: true,
       message: "Todo was successfully deleted.",

@@ -15,7 +15,12 @@ type Mutation {
 }
 
 type Subscription {
+  todo: TodoSubscriptionPayload!
+}
+
+type TodoSubscriptionPayload {
   todo: Todo!
+  mutation: MutationOperationType!
 }
 
 # Enum for the possible status of a todo
@@ -24,6 +29,12 @@ enum TodoStatusEnum {
   IN_PROGRESS
   CANCEL
   DONE
+}
+
+enum MutationOperationType {
+  UPDATE
+  DELETE
+  ADD
 }
 
 # Defines a Todo type, with a status enum and a reference to the associated user

@@ -11,7 +11,8 @@ import { Mutation } from './resolvers/Mutation.mjs';
 import { Subscription } from './resolvers/Subscription.mjs';
 import { PubSub } from 'graphql-subscriptions';
 
-const pubSub = new PubSub(); // Initialize PubSub
+// const pubsub = new PubSub();
+const pubsub = new PubSub(); // Initialize PubSub
 
 const __dirname = path.resolve();
 // Load the schema
@@ -34,7 +35,7 @@ const yoga = createYoga({
   }),
   context: () => ({
     db, // add `db` context
-    pubSub
+    pubsub
   }),
 
   maskedErrors: false,
